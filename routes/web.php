@@ -119,6 +119,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
     Route::resource('products', App\Http\Controllers\Admin\ProductController::class);
     Route::resource('categories', App\Http\Controllers\Admin\CategoryController::class);
+    Route::resource('customers', App\Http\Controllers\Admin\CustomerController::class);
 
     Route::post('orders/{order}/update-status', [App\Http\Controllers\Admin\OrderController::class, 'updateStatus'])->name('orders.update-status');
     Route::resource('orders', App\Http\Controllers\Admin\OrderController::class)->only(['index', 'show']);

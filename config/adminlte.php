@@ -336,12 +336,23 @@ return [
             'route' => 'admin.orders.index',
             'icon' => 'fas fa-fw fa-shopping-cart',
         ],
+        [
+            'text' => 'Customers',
+            'route' => 'admin.customers.index',
+            'icon' => 'fas fa-fw fa-users',
+        ],
         ['header' => 'Settings'],
         [
             'text' => 'View Store',
             'route' => 'home',
             'icon' => 'fas fa-fw fa-store',
             'target' => '_blank',
+        ],
+        [
+            'text' => 'Logout',
+            'icon' => 'fas fa-fw fa-sign-out-alt',
+            'url' => '#',
+            'topnav_user' => true,
         ],
     ],
 
@@ -381,7 +392,7 @@ return [
 
     'plugins' => [
         'Datatables' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
@@ -401,7 +412,7 @@ return [
             ],
         ],
         'Select2' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
@@ -416,7 +427,7 @@ return [
             ],
         ],
         'Chartjs' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
@@ -426,7 +437,7 @@ return [
             ],
         ],
         'Sweetalert2' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',

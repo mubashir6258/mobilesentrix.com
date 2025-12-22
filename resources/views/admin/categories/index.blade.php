@@ -32,7 +32,7 @@
 
     <div class="card">
         <div class="card-body">
-            <table class="table table-bordered table-striped">
+            <table id="categoriesTable" class="table table-bordered table-striped">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -92,8 +92,21 @@
                 </tbody>
             </table>
         </div>
-        <div class="card-footer">
-            {{ $categories->links() }}
-        </div>
     </div>
+@stop
+
+@section('js')
+<script>
+    $(document).ready(function() {
+        $('#categoriesTable').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+        });
+    });
+</script>
 @stop

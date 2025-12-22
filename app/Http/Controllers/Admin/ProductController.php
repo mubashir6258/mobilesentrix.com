@@ -40,7 +40,7 @@ class ProductController extends Controller
             });
         }
 
-        $products = $query->paginate(20);
+        $products = $query->get();
         $categories = Category::all();
 
         return view('admin.products.index', compact('products', 'categories'));

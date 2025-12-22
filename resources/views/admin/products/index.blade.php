@@ -66,8 +66,8 @@
     </div>
 
     <div class="card">
-        <div class="card-body table-responsive p-0">
-            <table class="table table-hover">
+        <div class="card-body">
+            <table id="productsTable" class="table table-bordered table-striped">
                 <thead>
                     <tr>
                         <th>Image</th>
@@ -134,8 +134,22 @@
                 </tbody>
             </table>
         </div>
-        <div class="card-footer">
-            {{ $products->links() }}
-        </div>
     </div>
+@stop
+
+@section('js')
+<script>
+    $(document).ready(function() {
+        $('#productsTable').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+            "pageLength": 20,
+        });
+    });
+</script>
 @stop

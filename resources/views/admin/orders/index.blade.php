@@ -51,8 +51,8 @@
     </div>
 
     <div class="card">
-        <div class="card-body table-responsive p-0">
-            <table class="table table-hover">
+        <div class="card-body">
+            <table id="ordersTable" class="table table-bordered table-striped">
                 <thead>
                     <tr>
                         <th>Order #</th>
@@ -102,8 +102,22 @@
                 </tbody>
             </table>
         </div>
-        <div class="card-footer">
-            {{ $orders->links() }}
-        </div>
     </div>
+@stop
+
+@section('js')
+<script>
+    $(document).ready(function() {
+        $('#ordersTable').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+            "order": [[2, 'desc']]  // Sort by date descending
+        });
+    });
+</script>
 @stop

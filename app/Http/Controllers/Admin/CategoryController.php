@@ -11,7 +11,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::with('parent')->paginate(20);
+        $categories = Category::with('parent')->get();
         return view('admin.categories.index', compact('categories'));
     }
 

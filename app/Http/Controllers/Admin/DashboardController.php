@@ -28,6 +28,34 @@ class DashboardController extends Controller
             ->limit(10)
             ->get();
 
-        return view('admin.dashboard', compact('stats', 'recent_orders', 'popular_products', 'low_stock_products'));
+        // Sales data for last 7 days
+        $salesData = [];
+        $salesLabels = [];
+        for ($i = 6; $i >= 0; $i--) {
+            $date = now()->subDays($i);
+            $salesLabels[] = $date->format('M d');
+            $salesData[] = Order::whereDate('created_at', $date->format('Y-m-d'))
+                ->where('status', 'completed')
+                ->sum('total');
+        }
+
+        // Order status distribution
+        $orderStatusData = [
+            'pending' => Order::where('status', 'pending')->count(),
+            'processing' => Order::where('status', 'processing')->count(),
+            'completed' => Order::where('status', 'completed')->count(),
+            'cancelled' => Order::where('status', 'cancelled')->count(),
+            'refunded' => Order::where('status', 'refunded')->count(),
+        ];
+
+        return view('admin.dashboard', compact(
+            'stats',
+            'recent_orders',
+            'popular_products',
+            'low_stock_products',
+            'salesData',
+            'salesLabels',
+            'orderStatusData'
+        ));
     }
 }
