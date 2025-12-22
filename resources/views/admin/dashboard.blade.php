@@ -11,8 +11,8 @@
         <div class="col-lg-3 col-6">
             <div class="small-box bg-info">
                 <div class="inner">
-                    <h3>150</h3>
-                    <p>New Orders</p>
+                    <h3>{{ $stats['total_orders'] }}</h3>
+                    <p>Total Orders</p>
                 </div>
                 <div class="icon">
                     <i class="fas fa-shopping-cart"></i>
@@ -26,13 +26,13 @@
         <div class="col-lg-3 col-6">
             <div class="small-box bg-success">
                 <div class="inner">
-                    <h3>53<sup style="font-size: 20px">%</sup></h3>
-                    <p>Revenue Growth</p>
+                    <h3>${{ number_format($stats['total_revenue'], 2) }}</h3>
+                    <p>Total Revenue</p>
                 </div>
                 <div class="icon">
-                    <i class="fas fa-chart-line"></i>
+                    <i class="fas fa-dollar-sign"></i>
                 </div>
-                <a href="#" class="small-box-footer">
+                <a href="{{ route('admin.orders.index') }}" class="small-box-footer">
                     More info <i class="fas fa-arrow-circle-right"></i>
                 </a>
             </div>
@@ -41,13 +41,13 @@
         <div class="col-lg-3 col-6">
             <div class="small-box bg-warning">
                 <div class="inner">
-                    <h3>44</h3>
-                    <p>New Registrations</p>
+                    <h3>{{ $stats['pending_orders'] }}</h3>
+                    <p>Pending Orders</p>
                 </div>
                 <div class="icon">
-                    <i class="fas fa-user-plus"></i>
+                    <i class="fas fa-clock"></i>
                 </div>
-                <a href="#" class="small-box-footer">
+                <a href="{{ route('admin.orders.index') }}" class="small-box-footer">
                     More info <i class="fas fa-arrow-circle-right"></i>
                 </a>
             </div>
@@ -56,7 +56,7 @@
         <div class="col-lg-3 col-6">
             <div class="small-box bg-danger">
                 <div class="inner">
-                    <h3>65</h3>
+                    <h3>{{ $stats['low_stock_items'] }}</h3>
                     <p>Low Stock Items</p>
                 </div>
                 <div class="icon">
@@ -86,24 +86,30 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>#ORD-001</td>
-                                <td>John Doe</td>
-                                <td>$150.00</td>
-                                <td><span class="badge badge-success">Completed</span></td>
-                            </tr>
-                            <tr>
-                                <td>#ORD-002</td>
-                                <td>Jane Smith</td>
-                                <td>$89.99</td>
-                                <td><span class="badge badge-warning">Pending</span></td>
-                            </tr>
-                            <tr>
-                                <td>#ORD-003</td>
-                                <td>Mike Johnson</td>
-                                <td>$275.50</td>
-                                <td><span class="badge badge-success">Completed</span></td>
-                            </tr>
+                            @forelse($recent_orders as $order)
+                                <tr>
+                                    <td>{{ $order->order_number }}</td>
+                                    <td>{{ $order->customer_name }}</td>
+                                    <td>${{ number_format($order->total, 2) }}</td>
+                                    <td>
+                                        @php
+                                            $badgeClass = match($order->status) {
+                                                'completed' => 'badge-success',
+                                                'pending' => 'badge-warning',
+                                                'processing' => 'badge-info',
+                                                'cancelled' => 'badge-danger',
+                                                'refunded' => 'badge-secondary',
+                                                default => 'badge-light',
+                                            };
+                                        @endphp
+                                        <span class="badge {{ $badgeClass }}">{{ ucfirst($order->status) }}</span>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="4" class="text-center">No recent orders</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
@@ -125,21 +131,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>iPhone 15 Pro LCD</td>
-                                <td>Apple</td>
-                                <td>342</td>
-                            </tr>
-                            <tr>
-                                <td>Samsung Galaxy S24 Screen</td>
-                                <td>Samsung</td>
-                                <td>278</td>
-                            </tr>
-                            <tr>
-                                <td>Repair Tool Kit</td>
-                                <td>Tools</td>
-                                <td>195</td>
-                            </tr>
+                            @forelse($popular_products as $product)
+                                <tr>
+                                    <td>{{ $product->name }}</td>
+                                    <td>{{ $product->category->name }}</td>
+                                    <td>{{ $product->reviews_count }}</td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="3" class="text-center">No products found</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
