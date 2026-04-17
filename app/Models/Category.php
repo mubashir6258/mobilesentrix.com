@@ -17,10 +17,12 @@ class Category extends Model
         'parent_id',
         'image',
         'is_active',
+        'is_device',
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
+        'is_device' => 'boolean',
     ];
 
     protected static function boot()
@@ -53,5 +55,10 @@ class Category extends Model
     public function children()
     {
         return $this->hasMany(Category::class, 'parent_id');
+    }
+
+    public function compatibleProducts()
+    {
+        return $this->belongsToMany(Product::class, 'category_product');
     }
 }

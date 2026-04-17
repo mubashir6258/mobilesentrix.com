@@ -332,6 +332,16 @@ return [
             'icon' => 'fas fa-fw fa-tags',
         ],
         [
+            'text' => 'Brands',
+            'route' => 'admin.brands.index',
+            'icon' => 'fas fa-fw fa-tag',
+        ],
+        [
+            'text' => 'Product Types',
+            'route' => 'admin.product-types.index',
+            'icon' => 'fas fa-fw fa-layer-group',
+        ],
+        [
             'text' => 'Orders',
             'route' => 'admin.orders.index',
             'icon' => 'fas fa-fw fa-shopping-cart',

@@ -1,0 +1,22 @@
+password: GMxL;3K@08gJ
+
+
+Generating public/private rsa key pair.
+Enter passphrase (empty for no passphrase): 
+Enter same passphrase again: 
+Your identification has been saved in /home/amazrugr/.ssh/id_rsa.
+Your public key has been saved in /home/amazrugr/.ssh/id_rsa.pub.
+The key fingerprint is:
+SHA256:03AyNLkAPJU04HRurNAq44JG6g2KWG6YFTNwmD69n+M 
+The key's randomart image is:
++---[RSA 2048]----+
+| o .+==.o.       |
+|+ .+o+oo..       |
+|.oo o.+.+..      |
+| o++ o  .*       |
+|o.o+o   S .      |
+|=o..     .       |
+|+B. . .          |
+|Xo+  +           |
+|+o...E.          |
++----[SHA256]-----+

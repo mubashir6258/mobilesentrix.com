@@ -49,4 +49,19 @@ class User extends Authenticatable
     {
         return $this->hasMany(Order::class);
     }
+
+    public function retailer()
+    {
+        return $this->hasOne(Retailer::class);
+    }
+
+    public function isRetailer(): bool
+    {
+        return $this->retailer()->exists();
+    }
+
+    public function isApprovedRetailer(): bool
+    {
+        return $this->retailer && $this->retailer->isApproved();
+    }
 }
